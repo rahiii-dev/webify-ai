@@ -1,5 +1,5 @@
-import Logo from "@components/Logo";
-import FooterSection from "@components/FooterSection";
+import Logo from "@/shared/components/Logo";
+import FooterSection from "@/shared/components/FooterSection";
 
 const Footer = () => {
   return (

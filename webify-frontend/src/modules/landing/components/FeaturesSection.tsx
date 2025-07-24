@@ -1,4 +1,4 @@
-import { Card } from "@components/ui/card";
+import { Card } from "@/shared/components/ui/card";
 import { Sparkles, Palette, Download } from "lucide-react";
 
 const features = [

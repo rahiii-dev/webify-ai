@@ -29,9 +29,6 @@
       "@/*": [
         "./src/*"
       ],
-      "@components/*": [
-        "./src/shared/components/*"
-      ]
     }
   },
   "include": [
