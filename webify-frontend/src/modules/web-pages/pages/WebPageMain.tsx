@@ -1,7 +1,8 @@
-import { Plus } from "lucide-react";
+import { PlusCircle } from "lucide-react";
 import WebPageList from "../components/WebPageList";
-import { useNavigate } from "react-router-dom";
 import { Button } from "@/shared/components/ui/button";
+import { useModal } from "@/shared/hooks/use-modal";
+import CreatePageModal from "@/shared/modals/CreatePageModal";
 
 // Dummy data — replace this with real fetched pages
 const pages = [
@@ -18,7 +19,11 @@ const pages = [
 ];
 
 const WebPageMain = () => {
-    const navigate = useNavigate();
+    const { openModal } = useModal();
+
+    const handleNewPage = () => {
+        openModal(<CreatePageModal />);
+    };
 
     return (
         <div className="p-6 space-y-6">
@@ -29,8 +34,8 @@ const WebPageMain = () => {
                         Create, manage, and edit your web pages.
                     </p>
                 </div>
-                <Button onClick={() => navigate("/builder/new")}>
-                    <Plus className="w-4 h-4 mr-2" />
+                <Button onClick={handleNewPage}>
+                    <PlusCircle className="w-4 h-4" />
                     New Page
                 </Button>
             </div>
