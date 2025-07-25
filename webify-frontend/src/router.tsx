@@ -4,7 +4,7 @@ import RootLayout from "@/layouts/RootLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import DashBoardHome from "./modules/dashboard/pages/DashBoardHome";
 import NotFound from "./shared/components/NotFound";
-import WebPageMain from "./modules/web-pages/pages/WebPageMain";
+import BuilderMainPage from "./modules/builder/pages/BuilderMainPage";
 import ProtectedRoute from "./shared/components/ProtectedRoute";
 
 export const router = createBrowserRouter([
@@ -24,7 +24,7 @@ export const router = createBrowserRouter([
     ),
     children: [
       { index: true, element: <DashBoardHome /> },
-      { path: "web-pages", element: <WebPageMain /> }
+      { path: "website-builder", element: <BuilderMainPage /> }
     ]
   },
   {

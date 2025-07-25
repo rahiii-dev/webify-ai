@@ -18,7 +18,7 @@ const pages = [
     },
 ];
 
-const WebPageMain = () => {
+const BuilderMainPage = () => {
     const { openModal } = useModal();
 
     const handleNewPage = () => {
@@ -46,4 +46,4 @@ const WebPageMain = () => {
     );
 };
 
-export default WebPageMain;
+export default BuilderMainPage;

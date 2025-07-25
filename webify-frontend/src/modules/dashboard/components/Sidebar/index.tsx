@@ -16,7 +16,7 @@ import { NavUser } from "./nav-user";
 const rawNavItems = [
   {
     title: "Website Builder",
-    url: "web-pages",
+    url: "website-builder",
     icon: Frame,
     isActive: false,
   },
