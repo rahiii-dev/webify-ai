@@ -1,31 +1,42 @@
-import { SidebarGroup, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/shared/components/ui/sidebar";
-import { type LucideIcon } from "lucide-react";
+import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/shared/components/ui/sidebar";
+import { PlusCircle, type LucideIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 
 interface NavMainProps {
     items: {
-        name: string;
+        title: string;
         icon: LucideIcon;
         url: string;
-        isActive: boolean;
+        isActive?: boolean;
     }[];
 }
 
 export const NavMain = ({ items }: NavMainProps) => {
     return (
         <SidebarGroup>
-            <SidebarMenu>
-                {items.map(item => (
-                    <SidebarMenuItem key={item.name}>
-                        <SidebarMenuButton asChild>
-                            <Link to={item.url}>
-                                <item.icon />
-                                <span>{item.name}</span>
-                            </Link>
+            <SidebarGroupContent className="flex flex-col gap-2">
+                <SidebarMenu>
+                    <SidebarMenuItem className="flex items-center gap-2">
+                        <SidebarMenuButton
+                            tooltip="Quick Create"
+                            className="bg-primary justify-center text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
+                        >
+                            <PlusCircle />
+                            <span>Quick Create</span>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
-                ))}
-            </SidebarMenu>
+                </SidebarMenu>
+                <SidebarMenu>
+                    {items.map((item) => (
+                        <SidebarMenuItem key={item.title}>
+                            <SidebarMenuButton tooltip={item.title} isActive={item.isActive} >
+                                {item.icon && <item.icon />}
+                                <Link to={item.url}>{item.title}</Link>
+                            </SidebarMenuButton>
+                        </SidebarMenuItem>
+                    ))}
+                </SidebarMenu>
+            </SidebarGroupContent>
         </SidebarGroup>
     );
 }

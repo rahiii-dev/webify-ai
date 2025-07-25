@@ -4,6 +4,7 @@ import RootLayout from "@/layouts/RootLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
 import DashBoardHome from "./modules/dashboard/pages/DashBoardHome";
 import NotFound from "./shared/components/NotFound";
+import WebPageMain from "./modules/web-pages/pages/WebPageMain";
 
 export const router = createBrowserRouter([
   {
@@ -17,7 +18,8 @@ export const router = createBrowserRouter([
     path: "/dashboard",
     element: <DashboardLayout />,
     children: [
-      { index: true, element: <DashBoardHome /> }
+      { index: true, element: <DashBoardHome /> },
+      { path: "web-pages", element: <WebPageMain /> }
     ]
   },
   {
