@@ -1,4 +1,4 @@
-import { SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/shared/components/ui/sidebar";
+import { SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, SidebarMenuButton, SidebarMenuItem } from "@/shared/components/ui/sidebar";
 import { useModal } from "@/shared/hooks/use-modal";
 import CreatePageModal from "@/shared/modals/CreatePageModal";
 import { PlusCircle, type LucideIcon } from "lucide-react";
@@ -14,7 +14,7 @@ interface NavMainProps {
 }
 
 export const NavMain = ({ items }: NavMainProps) => {
-    const {openModal} = useModal();
+    const { openModal } = useModal();
     const handleQuickCreate = () => {
         openModal(<CreatePageModal />);
     };
@@ -30,10 +30,11 @@ export const NavMain = ({ items }: NavMainProps) => {
                             className="bg-primary justify-center text-primary-foreground hover:bg-primary/90 hover:text-primary-foreground active:bg-primary/90 active:text-primary-foreground min-w-8 duration-200 ease-linear"
                         >
                             <PlusCircle />
-                                <span>Quick Create</span>
+                            <span>Quick Create</span>
                         </SidebarMenuButton>
                     </SidebarMenuItem>
                 </SidebarMenu>
+                <SidebarGroupLabel>Tools</SidebarGroupLabel>
                 <SidebarMenu>
                     {items.map((item) => (
                         <SidebarMenuItem key={item.title}>
