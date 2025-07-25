@@ -1,4 +1,4 @@
-import { Button } from "@/shared/components/ui/button";
+import { AuthActionButton } from "@/shared/components/AuthActionButton";
 import { Zap } from "lucide-react";
 
 const HeroSection = () => {
@@ -10,10 +10,16 @@ const HeroSection = () => {
       <p className="text-xl text-muted-foreground mb-8 max-w-2xl mx-auto">
         Describe your vision in plain English and watch AI create stunning, responsive websites in seconds. No coding required.
       </p>
-      <Button variant="hero" size="lg" className="text-lg px-8 py-4">
+      <AuthActionButton
+        redirect
+        to="/dashboard"
+        size="lg"
+        variant="hero"
+        className="text-lg px-8 py-4"
+      >
         <Zap className="w-5 h-5 mr-2" />
         Start Building
-      </Button>
+      </AuthActionButton>
     </section>
   );
 };

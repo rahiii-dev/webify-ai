@@ -5,6 +5,7 @@ import DashboardLayout from "@/layouts/DashboardLayout";
 import DashBoardHome from "./modules/dashboard/pages/DashBoardHome";
 import NotFound from "./shared/components/NotFound";
 import WebPageMain from "./modules/web-pages/pages/WebPageMain";
+import ProtectedRoute from "./shared/components/ProtectedRoute";
 
 export const router = createBrowserRouter([
   {
@@ -16,7 +17,11 @@ export const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <DashboardLayout />,
+    element: (
+      <ProtectedRoute>
+        <DashboardLayout />
+      </ProtectedRoute>
+    ),
     children: [
       { index: true, element: <DashBoardHome /> },
       { path: "web-pages", element: <WebPageMain /> }
