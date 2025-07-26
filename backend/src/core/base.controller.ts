@@ -8,7 +8,7 @@ export abstract class BaseController {
   }
 
   sendError(res: any, error: any, status = 500) {
-    return res.status(status).json({ message: error.message || "Server error" });
+    return res.status(status).json({ message: error || "Server error" });
   }
 
   protected getAuth(req: Request) {

@@ -5,6 +5,7 @@ import { registerRoutes } from "./routes";
 import { errorHandler } from "./middlewares/error.middleware";
 import { notFoundHandler } from "./middlewares/not-found-middleware";
 import { setupClerk } from "../lib/clerk";
+import morgan from "morgan";
 
 dotenv.config();
 
@@ -15,6 +16,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(setupClerk());
+app.use(morgan("dev"))
 
 registerRoutes(app);
 

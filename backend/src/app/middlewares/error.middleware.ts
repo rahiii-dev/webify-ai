@@ -17,6 +17,15 @@ export const errorHandler = (
     });
   }
 
+  //handle Mongoose validation errors
+  if (err.name === "ValidationError") {
+    return res.status(400).json({
+      success: false,
+      message: err.message,
+      errors: Object.values(err.errors).map((e: any) => e.message),
+    });
+  }
+
   // Unknown errors
   return res.status(500).json({
     success: false,
