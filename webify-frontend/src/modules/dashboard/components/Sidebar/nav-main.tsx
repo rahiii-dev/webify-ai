@@ -2,7 +2,7 @@ import { SidebarGroup, SidebarGroupContent, SidebarGroupLabel, SidebarMenu, Side
 import { useModal } from "@/shared/hooks/use-modal";
 import CreatePageModal from "@/shared/modals/CreatePageModal";
 import { PlusCircle, type LucideIcon } from "lucide-react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface NavMainProps {
     items: {
@@ -15,8 +15,10 @@ interface NavMainProps {
 
 export const NavMain = ({ items }: NavMainProps) => {
     const { openModal } = useModal();
+    const navigate = useNavigate();
+    
     const handleQuickCreate = () => {
-        openModal(<CreatePageModal />);
+        openModal(<CreatePageModal onCreated={(p) => navigate(`/editor/${p._id}`)} />);
     };
 
     return (

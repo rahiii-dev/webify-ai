@@ -16,7 +16,7 @@ const WebsiteEditor = () => {
     return (
         <StudioEditor
             options={{
-                licenseKey: 'your-license-key-here',
+                licenseKey: import.meta.env.VITE_GRAPEJS_LICENCE_KEY,
                 onReady: (editor) => {
                     editor.runCommand('studio:sidebarRight:toggle');
                     loadInitialPages(editor);
