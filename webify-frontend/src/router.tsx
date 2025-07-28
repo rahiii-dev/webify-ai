@@ -1,20 +1,31 @@
 import { createBrowserRouter } from "react-router-dom";
-import LandingPage from "@/modules/landing/pages/LandingPage";
+import { lazy, Suspense } from "react";
+
 import RootLayout from "@/layouts/RootLayout";
 import DashboardLayout from "@/layouts/DashboardLayout";
-import DashBoardHome from "./modules/dashboard/pages/DashBoardHome";
-import NotFound from "./shared/components/NotFound";
-import BuilderMainPage from "./modules/builder/pages/BuilderMainPage";
-import ProtectedRoute from "./shared/components/ProtectedRoute";
-import ProjectEditor from "./modules/editor/pages/ProjectEditorPage";
+import ProtectedRoute from "@/shared/components/ProtectedRoute";
+import NotFound from "@/shared/components/NotFound";
+import PageLoader from "./shared/components/PageLoader";
+
+const LandingPage = lazy(() => import("@/modules/landing/pages/LandingPage"));
+const DashBoardHome = lazy(() => import("@/modules/dashboard/pages/DashBoardHome"));
+const BuilderMainPage = lazy(() => import("@/modules/builder/pages/BuilderMainPage"));
+const ProjectEditor = lazy(() => import("@/modules/editor/pages/ProjectEditorPage"));
 
 export const router = createBrowserRouter([
   {
     path: "/",
     element: <RootLayout />,
     children: [
-      { index: true, element: <LandingPage /> }
-    ]
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <LandingPage />
+          </Suspense>
+        ),
+      },
+    ],
   },
   {
     path: "/dashboard",
@@ -24,18 +35,35 @@ export const router = createBrowserRouter([
       </ProtectedRoute>
     ),
     children: [
-      { index: true, element: <DashBoardHome /> },
-      { path: "website-builder", element: <BuilderMainPage /> }
-    ]
+      {
+        index: true,
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <DashBoardHome />
+          </Suspense>
+        ),
+      },
+      {
+        path: "website-builder",
+        element: (
+          <Suspense fallback={<PageLoader />}>
+            <BuilderMainPage />
+          </Suspense>
+        ),
+      },
+    ],
   },
   {
     path: "/editor/:id",
     element: (
-      <ProjectEditor />
-    )
+      <Suspense fallback={<PageLoader />}>
+        <ProjectEditor />
+      </Suspense>
+    ),
   },
   {
     path: "*",
-    element: <NotFound />
-  }
+    element: <NotFound />,
+  },
 ]);
+

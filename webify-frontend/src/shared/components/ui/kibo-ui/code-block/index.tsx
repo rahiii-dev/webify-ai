@@ -98,14 +98,14 @@ import {
   type CodeOptionsMultipleThemes,
   codeToHtml,
 } from 'shiki';
-import { Button } from '@/components/ui/button';
+import { Button } from '@/shared/components/ui/button';
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from '@/components/ui/select';
+} from '@/shared/components/ui/select';
 import { cn } from '@/lib/utils';
 
 export type { BundledLanguage } from 'shiki';
