@@ -6,6 +6,7 @@ import DashBoardHome from "./modules/dashboard/pages/DashBoardHome";
 import NotFound from "./shared/components/NotFound";
 import BuilderMainPage from "./modules/builder/pages/BuilderMainPage";
 import ProtectedRoute from "./shared/components/ProtectedRoute";
+import ProjectEditor from "./modules/editor/pages/ProjectEditorPage";
 
 export const router = createBrowserRouter([
   {
@@ -26,6 +27,12 @@ export const router = createBrowserRouter([
       { index: true, element: <DashBoardHome /> },
       { path: "website-builder", element: <BuilderMainPage /> }
     ]
+  },
+  {
+    path: "/editor/:id",
+    element: (
+      <ProjectEditor />
+    )
   },
   {
     path: "*",

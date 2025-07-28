@@ -2,22 +2,24 @@ import { PlusCircle } from "lucide-react";
 import { Button } from "@/shared/components/ui/button";
 import { useModal } from "@/shared/hooks/use-modal";
 import CreatePageModal from "@/shared/modals/CreatePageModal";
-import type { Project } from "../types";
+import type { Project } from "../../../shared/types/project-type";
 import { useGetApi } from "@/shared/hooks/api/use-get-api";
 import type { BackendResponse } from "@/shared/types/api-types";
 import { useEffect, useState } from "react";
 import ProjectTable from "../components/ProjectTable"; 
 import { TableSkeleton } from "@/shared/components/ui/table-skeleton";
 import { useDeleteApi } from "@/shared/hooks/api/use-delete-api";
+import { useNavigate } from "react-router-dom";
 
 const BuilderMainPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const { isPending, error, data, refetch } = useGetApi<BackendResponse<Project[]>>(
+  const { isPending, error, data } = useGetApi<BackendResponse<Project[]>>(
     "/projects",
     true
   );
   const {remove} = useDeleteApi("/projects")
   const { openModal } = useModal();
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
@@ -26,7 +28,7 @@ const BuilderMainPage = () => {
   }, [data, error]);
 
   const handleNewPage = () => {
-    openModal(<CreatePageModal onCreated={() => refetch()} />);
+    openModal(<CreatePageModal onCreated={(p) => navigate(`/editor/${p._id}`)} />);
   };
 
   const handleProjectDelete = async (project: Project) => {
@@ -36,6 +38,10 @@ const BuilderMainPage = () => {
     } catch (error) {
       console.log("Failed to delete a project");
     }
+  }
+
+  const handleSiteEdit = (project: Project) => {
+    navigate(`/editor/${project._id}`)
   }
 
   return (
@@ -60,7 +66,7 @@ const BuilderMainPage = () => {
       ) : projects.length === 0 ? (
         <p className="text-muted-foreground text-sm">No projects yet.</p>
       ) : (
-        <ProjectTable projects={projects} onDelete={handleProjectDelete} />
+        <ProjectTable projects={projects} onDelete={handleProjectDelete} onEdit={handleSiteEdit} />
       )}
     </div>
   );

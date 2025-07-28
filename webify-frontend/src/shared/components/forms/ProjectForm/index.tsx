@@ -60,7 +60,7 @@ export const ProjectForm = ({ onSubmit, isSubmitting }: Props) => {
           <Textarea
             {...register("prompt", { required: true })}
             placeholder="Describe your project (e.g., Landing page with hero and testimonials)"
-            className="pr-28"
+            className="pr-28 h-40 overflow-auto resize-none"
           />
           <Button
             type="button"
@@ -110,8 +110,8 @@ export const ProjectForm = ({ onSubmit, isSubmitting }: Props) => {
       <div className="pt-4">
         <Button type="submit" className="w-full flex justify-center items-center" disabled={isSubmitting}>
           {isSubmitting ? (
-              < Spinner />
-            ) : "Generate WebPages"}
+            < Spinner />
+          ) : "Generate WebPages"}
         </Button>
       </div>
     </form>

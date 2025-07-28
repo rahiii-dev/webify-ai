@@ -3,9 +3,10 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/shared/compo
 import { useModal } from "../hooks/use-modal";
 import { usePostApi } from "../hooks/api/use-post-api";
 import { toast } from "sonner";
+import type { Project } from "@/shared/types/project-type";
 
 interface CreatePageModalProps {
-  onCreated?: () => void;
+  onCreated?: (project: Project) => void;
 }
 
 const CreatePageModal = ({onCreated}: CreatePageModalProps) => {
@@ -19,7 +20,7 @@ const CreatePageModal = ({onCreated}: CreatePageModalProps) => {
     if (response) {
       toast.success("Project created successfully");
       setOpen(false);
-      onCreated?.(); 
+      onCreated?.(response.data); 
     } else {
       toast.error("Failed to create project. Please try again.");
     }

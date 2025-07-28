@@ -1,5 +1,5 @@
 import { format } from "date-fns";
-import type { Project } from "../types";
+import type { Project } from "../../../shared/types/project-type";
 import {
   Table,
   TableBody,
@@ -65,7 +65,7 @@ const ProjectTable = ({ projects, onView, onEdit, onDelete }: Props) => {
                       View
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => onEdit?.(project)}>
-                      Edit
+                      Edit Content
                     </DropdownMenuItem>
                     <DropdownMenuItem onClick={() => onDelete?.(project)}>
                       Delete
