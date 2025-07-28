@@ -6,18 +6,18 @@ import type { Project } from "../../../shared/types/project-type";
 import { useGetApi } from "@/shared/hooks/api/use-get-api";
 import type { BackendResponse } from "@/shared/types/api-types";
 import { useEffect, useState } from "react";
-import ProjectTable from "../components/ProjectTable"; 
+import ProjectTable from "../components/ProjectTable";
 import { TableSkeleton } from "@/shared/components/ui/table-skeleton";
 import { useDeleteApi } from "@/shared/hooks/api/use-delete-api";
 import { useNavigate } from "react-router-dom";
 
 const BuilderMainPage = () => {
   const [projects, setProjects] = useState<Project[]>([]);
-  const { isPending, error, data } = useGetApi<BackendResponse<Project[]>>(
+  const { isPending, error, data, refetch } = useGetApi<BackendResponse<Project[]>>(
     "/projects",
     true
   );
-  const {remove} = useDeleteApi("/projects")
+  const { remove } = useDeleteApi("/projects")
   const { openModal } = useModal();
   const navigate = useNavigate();
 
@@ -62,7 +62,12 @@ const BuilderMainPage = () => {
       {isPending ? (
         <TableSkeleton rows={10} columns={4} />
       ) : error ? (
-        <p className="text-destructive text-sm">Failed to load projects.</p>
+        <div className="text-sm text-destructive flex items-center gap-4">
+          <span>Failed to load projects.</span>
+          <Button variant="outline" size="sm" onClick={() => refetch()}>
+            Retry
+          </Button>
+        </div>
       ) : projects.length === 0 ? (
         <p className="text-muted-foreground text-sm">No projects yet.</p>
       ) : (
