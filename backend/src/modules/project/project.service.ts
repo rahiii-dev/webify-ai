@@ -1,4 +1,4 @@
-import { IProject, Project } from "../../models/project.model";
+import { IProject, Project, ProjectContent, ProjectStatus } from "../../models/project.model";
 import { CreateProjectDto } from "./dto/create-project.dto";
 
 export class ProjectService {
@@ -19,8 +19,18 @@ export class ProjectService {
     }
 
     async getAllProjects(userId?: string): Promise<IProject[]> {
-        const projects = userId ? await Project.find({ user: userId }).sort({createdAt: -1 }) : Project.find().sort({createdAt: -1 });
+        const projects = userId ? await Project.find({ user: userId }).sort({ createdAt: -1 }) : Project.find().sort({ createdAt: -1 });
         return projects;
+    }
+
+    async updateProductContent(projectId: string, content: ProjectContent): Promise<Boolean> {
+        const result = await Project.updateOne({ _id: projectId }, { $set: { content } }).exec();
+        return result.modifiedCount > 0;
+    }
+
+    async changeProjectStatus(projectId: string, status: ProjectStatus): Promise<Boolean> {
+        const result = await Project.updateOne({ _id: projectId }, { $set: { status } }).exec();
+        return result.modifiedCount > 0;
     }
 
 

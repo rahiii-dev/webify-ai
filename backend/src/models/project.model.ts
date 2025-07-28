@@ -1,5 +1,15 @@
 import mongoose, { Schema, Document, Model } from "mongoose";
 
+export interface ProjectContent {
+  html: string;
+  css: string;
+}
+
+export const PROJECT_STATUSES = ["pending", "generating", "failed", "completed"] as const;
+
+export type ProjectStatus = (typeof PROJECT_STATUSES)[number];
+
+
 export interface IProject extends Document {
   user: string;
   name: string;
@@ -7,8 +17,8 @@ export interface IProject extends Document {
   template?: string;
   palette?: string;
   language: string;
-  html?: string;
-  css?: string;
+  content: ProjectContent | null;
+  status: ProjectStatus;
   createdAt: Date;
   updatedAt: Date;
 }
@@ -20,12 +30,20 @@ const ProjectSchema: Schema<IProject> = new Schema(
     prompt: { type: String, required: true },
     template: { type: String },
     palette: { type: String },
+    content: {
+      html: { type: String, default: "" },
+      css: { type: String, default: "" },
+      js: { type: String, default: "" },
+    },
+    status: {
+      type: String,
+      enum: PROJECT_STATUSES,
+      default: "pending",
+    },
     language: { type: String, default: "en" },
-    html: { type: String },
-    css: { type: String },
   },
   {
-    timestamps: true, 
+    timestamps: true,
   }
 );
 

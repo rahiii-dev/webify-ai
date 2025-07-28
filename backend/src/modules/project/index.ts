@@ -2,4 +2,9 @@ import { ProjectController } from "./project.controller";
 import { ProjectService } from "./project.service";
 
 const projectService = new ProjectService();
-export const projectController = new ProjectController(projectService);
+const projectController = new ProjectController(projectService);
+
+export {
+    projectController,
+    projectService,
+}
