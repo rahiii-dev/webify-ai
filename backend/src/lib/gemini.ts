@@ -1,11 +1,4 @@
-import dotenv from "dotenv";
-dotenv.config();
 import { GoogleGenAI } from "@google/genai";
-const apiKey = process.env.GEMINI_API_KEY; 
+import { getOrThrow } from "../core/utils/env";
 
-
-if(!apiKey) {
-    throw new Error("'GEMINI_API_KEY is required env");
-}
-
-export const genAi = new GoogleGenAI({apiKey});
+export const genAi = new GoogleGenAI({apiKey: getOrThrow('GEMINI_API_KEY')});

@@ -17,15 +17,8 @@ export interface AIStreamInput extends AIinput {
 }
 
 abstract class AIProvider {
-    protected modelId: string;
-
-    constructor(modelId: string) {
-        this.modelId = modelId;
-    }
-
     abstract generate(data: AIinput): Promise<any>;
-
-    abstract stream(data: AIStreamInput): Promise<void>;
+    // abstract stream(data: AIStreamInput): Promise<void>;
 }
 
 export default AIProvider;

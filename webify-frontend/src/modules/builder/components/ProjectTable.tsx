@@ -61,13 +61,13 @@ const ProjectTable = ({ projects, onView, onEdit, onDelete }: Props) => {
                     </Button>
                   </DropdownMenuTrigger>
                   <DropdownMenuContent align="end">
-                    <DropdownMenuItem onClick={() => onView?.(project)}>
+                    <DropdownMenuItem onClick={() => onView?.(project)} className={onView ? "block" : "hidden"}>
                       View
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => onEdit?.(project)}>
+                    <DropdownMenuItem onClick={() => onEdit?.(project)} className={onEdit ? "block" : "hidden"}>
                       Edit Content
                     </DropdownMenuItem>
-                    <DropdownMenuItem onClick={() => onDelete?.(project)}>
+                    <DropdownMenuItem onClick={() => onDelete?.(project)} className={onDelete ? "block" : "hidden"}>
                       Delete
                     </DropdownMenuItem>
                   </DropdownMenuContent>
