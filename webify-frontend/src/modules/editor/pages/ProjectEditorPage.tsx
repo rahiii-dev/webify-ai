@@ -4,12 +4,14 @@ import WebsiteEditor from "../components/WebsiteEditor";
 import { useGetApi } from "@/shared/hooks/api/use-get-api";
 import PageLoader from "@/shared/components/PageLoader";
 import { AiWebsiteBuilderProvider } from "@/shared/context/ai-website-builder-context";
+import { usePutApi } from "@/shared/hooks/api/use-put-api";
 
 const ProjectEditorPage = () => {
   const { id } = useParams();
   const navigate = useNavigate();
 
   const { isPending, data, error } = useGetApi(`/projects/${id}`);
+  const {put: updateProject} = usePutApi(`/projects/${id}`)
 
   useEffect(() => {
     if (error) {
@@ -41,9 +43,15 @@ const ProjectEditorPage = () => {
 
   const project = data.data;
 
+  const handleSave = async (content: {html: string, css: string}) => {
+    await updateProject({
+      content
+    });
+  }
+
   return (
     <AiWebsiteBuilderProvider project={project}>
-      <WebsiteEditor />
+      <WebsiteEditor onSave={handleSave} />
     </AiWebsiteBuilderProvider>
   );
 };

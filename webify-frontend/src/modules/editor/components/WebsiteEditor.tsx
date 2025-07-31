@@ -1,17 +1,14 @@
 import StudioEditor from '@grapesjs/studio-sdk/react';
 import CustomLeftSidebar from './CustomLeftSidebar';
-import type { Editor } from 'grapesjs';
 import { useAiWebsiteBuilder } from '@/shared/context/ai-website-builder-context';
 
+interface WebsiteEditorProps {
+    onSave?: ({html, css}: {html: string, css: string}) => void;
+}
 
-const WebsiteEditor = () => {
-    const {currentProject} = useAiWebsiteBuilder();
 
-    const loadInitialPages = (editor: Editor) => {
-        if(!currentProject) return;
-        editor.setComponents(currentProject.content?.html || "");
-        editor.setStyle(currentProject.content?.css || "");
-    }
+const WebsiteEditor = ({onSave}: WebsiteEditorProps) => {
+    const { currentProject } = useAiWebsiteBuilder();
 
     return (
         <StudioEditor
@@ -19,7 +16,29 @@ const WebsiteEditor = () => {
                 licenseKey: import.meta.env.VITE_GRAPEJS_LICENCE_KEY,
                 onReady: (editor) => {
                     editor.runCommand('studio:sidebarRight:toggle');
-                    loadInitialPages(editor);
+                    // loadInitialPages(editor);
+                },
+                storage: {
+                    type: "self",
+                    autosaveChanges: 5,
+                    onLoad: async () => {
+                        return {
+                            project: {
+                                pages: [
+                                    { 
+                                        name: 'Home', 
+                                        component: currentProject.content?.html || '<h1>New project</h1>',
+                                        style: currentProject.content?.css
+                                    },
+                                ]
+                            }
+                        };
+                    },
+                    onSave: async ({ editor }) => {
+                        const html = editor.getHtml() || ""
+                        const css = editor.getCss() || "";
+                        onSave?.({html, css});
+                    },
                 },
 
                 layout: {

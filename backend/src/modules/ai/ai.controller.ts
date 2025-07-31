@@ -61,7 +61,7 @@ export class AIController extends BaseController {
                     projectId,
                 })
 
-                await this.projectService.updateProductContent(projectId, {
+                await this.projectService.updateProjectContent(projectId, {
                     html: result.html || "",
                     css: result.css || "",
                 });

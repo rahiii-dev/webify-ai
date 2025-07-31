@@ -5,6 +5,7 @@ import { asyncWrapper } from "../../core/utils/asyncWrapper";
 import { CreateProjectDto } from "./dto/create-project.dto";
 import { getTemplate } from "../../core/utils/template";
 import { getColorPalettes } from "../../core/utils/pallete";
+import { UpdateProjectDto } from "./dto/update-project-dto";
 
 export class ProjectController extends BaseController {
     private readonly projectService: ProjectService;
@@ -22,12 +23,12 @@ export class ProjectController extends BaseController {
         if (!projectData.name || !projectData.prompt) {
             return this.sendError(res, "Name and description are required fields", 400);
         }
-        
-        if(projectData.template && getTemplate(projectData.template) === undefined) {
+
+        if (projectData.template && getTemplate(projectData.template) === undefined) {
             return this.sendError(res, "Invalid template type", 400);
         }
-        
-        if(projectData.palette && getColorPalettes(projectData.palette) === undefined) {
+
+        if (projectData.palette && getColorPalettes(projectData.palette) === undefined) {
             return this.sendError(res, "Color palette must be a string", 400);
         }
 
@@ -40,6 +41,19 @@ export class ProjectController extends BaseController {
         const project = await this.projectService.getProjectById(projectId);
         this.sendSuccess(res, project, "Project retrieved successfully");
     });
+
+    updateProjectById = asyncWrapper(async (req: Request, res) => {
+        const projectId = req.params.id;
+        const data: UpdateProjectDto = req.body;
+        console.log(data);
+        const success = await this.projectService.updateProjectById(projectId, data);
+        if(success){
+            return this.sendSuccess(res, null, "Project updated successfully");
+        }
+
+        return this.sendError(res, "Project not found or no changes made")
+    });
+
 
     deleteProject = asyncWrapper(async (req: Request, res) => {
         const projectId = req.params.id;

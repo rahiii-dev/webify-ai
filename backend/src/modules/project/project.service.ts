@@ -1,5 +1,6 @@
 import { IProject, Project, ProjectContent, ProjectStatus } from "../../models/project.model";
 import { CreateProjectDto } from "./dto/create-project.dto";
+import { UpdateProjectDto } from "./dto/update-project-dto";
 
 export class ProjectService {
     async createProject(projectData: CreateProjectDto): Promise<IProject> {
@@ -23,7 +24,13 @@ export class ProjectService {
         return projects;
     }
 
-    async updateProductContent(projectId: string, content: ProjectContent): Promise<Boolean> {
+
+    async updateProjectById(projectId: string, data: UpdateProjectDto): Promise<Boolean> {
+        const result = await Project.updateOne({ _id: projectId }, { $set: data }).exec();
+        return result.modifiedCount > 0;
+    }
+
+    async updateProjectContent(projectId: string, content: ProjectContent): Promise<Boolean> {
         const result = await Project.updateOne({ _id: projectId }, { $set: { content } }).exec();
         return result.modifiedCount > 0;
     }
